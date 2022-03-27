@@ -7,7 +7,7 @@
     "server": "nodemon backend/server.js",
     "start": "node backend/server.js",
     "client": "yarn --cwd frontend dev",
-    "devServer": "concurrently \"yarn server\" \"yarn client\""
+    "devServer": "concurrently \"yarn start\" \"yarn client\""
   },
   "author": "",
   "license": "ISC",

@@ -1,19 +1,51 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { FaSignInAlt } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
+import { login, reset } from "../features/auth/authSlice";
 
 function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
   const [formData, setFormData] = useState({
-    emial: "",
+    email: "",
     password: "",
   });
+
   const { email, password } = formData;
+
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    const userData = {
+      email,
+      password,
+    };
+    dispatch(login(userData));
   };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate("/");
+    }
+    dispatch(reset());
+  }, [user, isError, isSuccess, navigate, dispatch, message]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <Fragment>
@@ -34,6 +66,7 @@ function Login() {
               value={email}
               placeholder="Enter your email"
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -45,10 +78,11 @@ function Login() {
               value={password}
               placeholder="Enter your password"
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
-            <div className="btn btn-block">Submit</div>
+            <button className="btn btn-block">Submit</button>
           </div>
         </form>
       </section>
