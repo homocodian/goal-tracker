@@ -97,12 +97,7 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route   GET api/users/me
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
-  const { id, name, email } = await User.findById(req.user.id);
-  res.status(200).json({
-    id: id,
-    name,
-    email,
-  });
+  res.status(200).json(req.user);
 });
 
 function generateToken(id) {
