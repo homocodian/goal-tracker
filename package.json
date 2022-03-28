@@ -7,7 +7,8 @@
     "server": "nodemon backend/server.js",
     "start": "node backend/server.js",
     "client": "yarn --cwd frontend dev",
-    "devServer": "concurrently \"yarn start\" \"yarn client\""
+    "devServer": "concurrently \"yarn start\" \"yarn client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
   "license": "ISC",

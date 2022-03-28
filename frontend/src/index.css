@@ -115,6 +115,14 @@ h3 {
   background: none;
 }
 
+.delete-btn {
+  font-size: 20px;
+}
+
+.delete-btn:hover {
+  color: red;
+}
+
 .form,
 .content {
   width: 70%;
