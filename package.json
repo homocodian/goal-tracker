@@ -8,7 +8,7 @@
     "start": "node backend/server.js",
     "client": "yarn --cwd frontend dev",
     "devServer": "concurrently \"yarn start\" \"yarn client\"",
-    "heroku-postbuild": "yarn --cwd frontend install && yarn --cwd frontend build"
+    "heroku-postbuild": "YARN_PRODUCTION=false yarn --cwd frontend install && yarn --cwd frontend build"
   },
   "author": "",
   "license": "ISC",
